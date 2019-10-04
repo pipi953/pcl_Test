@@ -1,13 +1,52 @@
 ﻿// pcl_Test.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
 
-#include "pch.h"
-#include <iostream>
+//#include <iostream>
+//
+//int main()
+//{
+//    std::cout << "Hello World!\n"; 
+//}
 
-int main()
+
+// 点的类型的头文件
+#include <pcl/point_types.h>
+// 点云文件 IO（pcd 文件和 ply 文件）
+#include <pcl/io/pcd_io.h>
+#include <pcl/io/ply_io.h>
+//kd 树
+#include <pcl/kdtree/kdtree_flann.h>
+// 特征提取
+#include <pcl/features/normal_3d_omp.h>
+#include <pcl/features/normal_3d.h>
+// 重构
+#include <pcl/surface/gp3.h>
+#include <pcl/surface/poisson.h>
+// 可视化
+#include <pcl/visualization/pcl_visualizer.h>
+// 多线程
+#include <boost/thread/thread.hpp>
+#include <fstream>
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
+#include <string>
+
+int main(int argc, char** argv)
 {
-    std::cout << "Hello World!\n"; 
+	//1.loadPCDFile读取点云
+	pcl::PointCloud<pcl::PointXYZ>::Ptr cloud1(new pcl::PointCloud<pcl::PointXYZ>);
+	if (pcl::io::loadPCDFile<pcl::PointXYZ>("data/test.pcd", *cloud1) == -1)
+	{
+		PCL_ERROR("Cloudn't read file!");
+		return -1;
+	}
+	cout << "1.loadPCDFile方式使用指针读取点个数: " << cloud1->points.size() << endl;
+
+	return 0;
 }
+
+
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
 // 调试程序: F5 或调试 >“开始调试”菜单
